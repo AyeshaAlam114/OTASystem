@@ -1,0 +1,6 @@
+@OTASystem_HostAddress = http://localhost:5258
+
+GET {{OTASystem_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
