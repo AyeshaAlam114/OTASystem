@@ -1,7 +1,5 @@
-﻿using System.Threading.Tasks;
-using OTASystem.Data.Models;
+﻿using System.Text.Json;
 using OTASystem.Repositories;
-using OTASystem.Services;
 
 namespace OTASystem.Services
 {
@@ -14,13 +12,18 @@ namespace OTASystem.Services
             _userRepository = userRepository;
         }
 
-        public async Task<User> Authenticate(string username, string password)
+        public async Task<string> Authenticate(string username, string password)
         {
-            var user = await _userRepository.GetUserByUsername(username);
-            if (user == null || user.PasswordHash != password)
-                return null;
+            var user = await _userRepository.GetUserByCredentials(username, password);
+            if (user == null) return null;
 
-            return user;
+            return JsonSerializer.Serialize(new
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email,
+                Role = user.Role
+            });
         }
     }
 }

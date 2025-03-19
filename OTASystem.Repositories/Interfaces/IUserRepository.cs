@@ -5,6 +5,6 @@ namespace OTASystem.Repositories
 {
     public interface IUserRepository
     {
-        Task<User> GetUserByUsername(string username);
+        Task<User> GetUserByCredentials(string username, string password);
     }
 }

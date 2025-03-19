@@ -14,9 +14,9 @@ namespace OTASystem.Repositories
             _context = context;
         }
 
-        public async Task<User> GetUserByUsername(string username)
+        public async Task<User> GetUserByCredentials(string username, string password)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+            return await _context.Users.FirstOrDefaultAsync(u => u.Username == username && u.PasswordHash == password);
         }
     }
 }

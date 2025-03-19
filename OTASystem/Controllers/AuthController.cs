@@ -16,15 +16,15 @@ namespace OTASystem.Controllers
             _userService = userService;
         }
 
+
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserLogin userLogin)
         {
-            var user = await _userService.Authenticate(userLogin.Username, userLogin.Password);
+            var userJson = await _userService.Authenticate(userLogin.Username, userLogin.Password);
+            if (userJson == null)
+                return Unauthorized(new { Message = "Invalid credentials" });
 
-            if (user == null)
-                return Unauthorized(new { Message = "Invalid username or password" });
-
-            return Ok(new { Message = "Login successful", User = user.Username });
+            return Ok(userJson);
         }
     }
 }
