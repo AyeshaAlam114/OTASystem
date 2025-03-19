@@ -11,7 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-options.UseInMemoryDatabase("UserDb")); // Use In-Memory Database
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+    b => b.MigrationsAssembly("OTASystem.Data"))); // Explicitly set migrations assembly
+
+
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();

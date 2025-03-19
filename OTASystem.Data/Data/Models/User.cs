@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OTASystem.Data.Data.Models;
+namespace OTASystem.Data.Models;
 
 public partial class User
 {
